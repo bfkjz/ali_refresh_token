@@ -14,7 +14,7 @@
 
 </body>
 <script>
-    var mainscript = `javascript:(function(){var token=sessionStorage.getItem("token");if(token == null){token=localStorage.getItem("token")}else{alert("获取token失败，请手动尝试其他方式")};var tokenlist=token.split(",");var tk="获取refresh_token失败";var n="获取不到用户名";for(let i=0;i<tokenlist.length;i++){if(tokenlist[i].indexOf('"nick_name"')!==-1){console.log("用户名："+tokenlist[i].split(":")[1].replace(/"/g,""));n=tokenlist[i].split(":")[1].replace(/"/g,"");}if(tokenlist[i].indexOf('"refresh_token"')!==-1){console.log("refresh_token是："+tokenlist[i].split(":")[1].replace(/"/g,""));tk=tokenlist[i].split(":")[1].replace(/"/g,"");}}alert(n+"："+tk);window.location.href=window.location.href+"#"+tk;console.log("有问题可联系我。\n公众号：缤纷科技站\n --by Zeb")})()`;
+    var mainscript = `javascript:(function(){var token=sessionStorage.token;if(token==undefined){token=localStorage.token};if(token!==undefined){console.log(JSON.parse(token).nick_name+"的refresh_token是："+JSON.parse(token).refresh_token);window.location.href=window.location.href+"#"+JSON.parse(token).refresh_token;alert(JSON.parse(token).nick_name+": "+JSON.parse(token).refresh_token);console.log("有问题可联系我。\n公众号：缤纷科技站\n --by Zeb")}else{alert("获取token失败，请手动尝试其他方式")}})()`;
     window.onload=function(){
         document.getElementById("main").href=mainscript;
     }
